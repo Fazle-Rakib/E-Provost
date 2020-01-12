@@ -15,7 +15,12 @@ Route::get('/','PagesController@index');
 Route::get('/about','PagesController@about');
 Route::get('/services','PagesController@service');
 Route::resource('posts','PostsController');
+Route::resource('comments','CommentsController');
+//Route::post('/comments/{post_id}','CommentsController@storeWithId');
 /*Route::get('/', function () {
     return view('welcome');
 });
 */
+Auth::routes();
+
+Route::get('/dashboard', 'DashboardController@index');

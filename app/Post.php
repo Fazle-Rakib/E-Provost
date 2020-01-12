@@ -7,9 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     //Table name can be changed as I like
-    //protected $table = 'posts';
+    protected $table = 'posts';
     //Primary Key
-    //public $primaryKey = 'id';
+    public $primaryKey = 'id';
     //Timestamps
-    //public $timestamps = true;
+    public $timestamps = true;
+
+    public function user(){
+        return $this->belongsTo('App\User');
+    }
+    public function comments(){
+        return $this->hasMany('App\Comment');
+    }
 }

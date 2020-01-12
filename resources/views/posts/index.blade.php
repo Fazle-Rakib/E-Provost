@@ -6,8 +6,15 @@
         @foreach($posts as $post)
             <div class="card card-inverse" style="background-color: #89ABE3FF; border-color: #89ABE5FF;">
                 <div class="card-block">
-                <h3 class="card-title"><a href = "/posts/{{$post->id}}">{{$post->title}}</a></h3>
-                <small>Written on {{$post->created_at}}</small>
+                    <div class ="row">
+                        <div class="col-md-3 col-sm-3">
+                            <img style ="width:100%" src="/storage/cover_image/{{$post->cover_image}}">
+                        </div>
+                        <div class="col-md-9 col-sm-9">
+                            <h3 class="card-title"><a href = "/posts/{{$post->id}}">{{$post->title}}</a></h3>
+                            <small>Written on {{$post->created_at}} By {{$post->user->name}}</small>
+                        </div>
+                    </div>
                 </div>
             </div>
             <br>
