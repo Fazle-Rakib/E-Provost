@@ -3,11 +3,24 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Notifications\CommentsNotification;
+use App\User;
 use App\Comment;
 use App\Post;
 
 class CommentsController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth',['except' =>['index','show']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -46,6 +59,14 @@ class CommentsController extends Controller
         $comment->user_id = Auth()->user()->id;
         $comment->post_id = request()->input('post_id');
         $comment->save();
+        if(!Auth::guest())
+        {
+            $user = User::find(Post::find($comment->post_id)->user_id);
+            if($user->id != Auth::user()->id)
+            {
+                $user->notify(new CommentsNotification($comment));   
+            }
+        }
         return back()->with('success', 'Comment Created');
         //return redirect('/posts')
     }

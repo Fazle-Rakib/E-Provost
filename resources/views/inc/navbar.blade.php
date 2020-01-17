@@ -1,3 +1,5 @@
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
 <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
   <div class="container">
       <a class="navbar-brand" href="{{ url('/') }}">
@@ -54,12 +56,30 @@
                   @endif
               @else
                   <li class="nav-item dropdown">
+                    <a id="navbarDropdown" class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                      <i class="fa fa-bell"></i><span class=""></span>
+                  </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="/">Notifications</a>  
+                        @foreach(Auth::user()->notifications as $notification)
+                            <a class="dropdown-item" href="/posts/{{$notification->data['post_id']}}" onMouseOver="this.style.color='#0F0'" onMouseOut="this.style.color='#000'"><h5>{{$notification->data['commentator_name'] }} has commented on your post</h5>
+                            <small>{{$notification->created_at->diffForHumans()}}</small>
+                            </a>  
+                         @endforeach
+                      </a>   
+                    </div> 
+                  </li>
+                  
+
+
+                  <li class="nav-item dropdown">
                     
                       <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                           {{ Auth::user()->name }} <span class="caret"></span>
                       </a>
 
                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/profile">Profile</a>
                         <a class="dropdown-item" href="/dashboard">Dashboard</a>
                         <a class="dropdown-item" href="/posts/create">Create Post</a>
                           <a class="dropdown-item" href="{{ route('logout') }}"
