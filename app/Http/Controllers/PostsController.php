@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
+use App\Notifications\CommentsNotification;
+use App\User;
 use App\Post;
 use App\Comment;
 
@@ -80,6 +83,19 @@ class PostsController extends Controller
         $post->cover_image = $fileNameToStore;
         $post->save();
 
+        //Notification for Provost
+        if(!Auth::guest())
+        {
+            $users = User::where('user_type',1)->get();
+            foreach($users as $user)
+            {
+                if($user != Auth::user())
+                {
+                    $user->notify(new CommentsNotification($post));  
+                }
+                
+            }
+        }
         return redirect('/posts')->with('success', 'Post Created');
     }
 
@@ -172,7 +188,7 @@ class PostsController extends Controller
     public function destroy($id)
     {
         $post = POST::find($id);
-        if(auth()->user()->id !== $post->user_id )
+        if(auth()->user()->id !== $post->user_id && auth()->user()->user_type != 1)
         {
             return redirect('/posts')->with('error','Unauthorized Page!');
         }

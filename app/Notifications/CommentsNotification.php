@@ -56,9 +56,20 @@ class CommentsNotification extends Notification
      */
     public function toArray($notifiable)
     {
-        return [
-            'commentator_name' => User::find($this->comment->user_id)->name,
-            'post_id' => $this->comment->post_id
-        ];
+        if($this->comment->post_id != NULL)
+        {
+            return [
+                'commentator_name' => User::find($this->comment->user_id)->name,
+                'post_id' => $this->comment->post_id
+            ];
+        }
+        else
+        {
+            return [
+                'commentator_name' => User::find($this->comment->user_id)->name,
+                'post_id' => $this->comment->id
+            ];
+        }
+        
     }
 }

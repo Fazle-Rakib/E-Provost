@@ -22,6 +22,8 @@ Route::resource('profile','ProfilesController');
     return view('welcome');
 });
 */
-Auth::routes();
+Auth::routes([
+    'reset' => false
+]);
 
 Route::get('/dashboard', 'DashboardController@index');

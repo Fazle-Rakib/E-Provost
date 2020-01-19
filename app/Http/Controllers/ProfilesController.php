@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 use App\Profile;
 use App\User;
 
@@ -47,13 +48,30 @@ class ProfilesController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'dept_name' => 'required',
-            'reg_number' => 'required',
-            'phn_number' => 'required',
-            'blood_group' => 'required',
-            'profile_image' =>'image|nullable|max:1999'
-        ]);
+        if(Auth::user()->user_type != 1)
+        {
+            $this->validate($request,[
+                'dept_name' => 'required',
+                'reg_number' => 'required',
+                'hall_name' => 'required',
+                'hall_id' => 'required',
+                'phn_number' => 'required',
+                'blood_group' => 'required',
+                'profile_image' =>'image|nullable|max:1999'
+            ]);
+        }
+        else
+        {
+            $this->validate($request,[
+                'dept_name' => 'required',
+                'dept_post' => 'required',
+                'hall_name' => 'required',
+                'hall_post' => 'required',
+                'phn_number' => 'required',
+                'blood_group' => 'required',
+                'profile_image' =>'image|nullable|max:1999'
+            ]);
+        }
 
         //Handle File Upload
         if($request->hasfile('profile_image')){
@@ -70,11 +88,26 @@ class ProfilesController extends Controller
             $fileNameToStore = 'noProfileImage.jpg';
         }
 
-        //Create Profile
         $profile = new Profile();
+        //Create Profile For Student
+        if(Auth::user()->user_type != 1)
+        {
+            $profile->reg_number = $request->input('reg_number');
+            $profile->hall_id = $request->input('hall_id');
+            $profile->dept_post = "";
+            $profile->hall_post = "";
+        }
+        else
+        {
+            $profile->reg_number = 0;
+            $profile->hall_id = 0;
+            $profile->dept_post = $request->input('dept_post');
+            $profile->hall_post = $request->input('hall_post');
+        }
+        
         $profile->user_id = auth()->user()->id;
-        $profile->reg_number = $request->input('reg_number');
         $profile->dept_name = $request->input('dept_name');
+        $profile->hall_name = $request->input('hall_name');
         $profile->phn_number = $request->input('phn_number');
         $profile->blood_group = $request->input('blood_group');
         $profile->profile_image = $fileNameToStore;
@@ -92,7 +125,9 @@ class ProfilesController extends Controller
      */
     public function show($id)
     {
-        return 'Show';
+        $user1 = Profile::find($id);
+        $user2 = User::find($id);
+        return view('profiles.show',['user_id' => $user1,'user' => $user2]);
     }
 
     /**
@@ -123,17 +158,34 @@ class ProfilesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user =  Profile::find($id);
+        $profile =  Profile::find($id);
 
-        $this->validate($request,[
-            'dept_name' => 'required',
-            'reg_number' => 'required',
-            'phn_number' => 'required',
-            'blood_group' => 'required',
-            'profile_image' =>'image|nullable|max:1999'
-        ]);
+        if(Auth::user()->user_type != 1)
+        {
+            $this->validate($request,[
+                'dept_name' => 'required',
+                'reg_number' => 'required',
+                'hall_name' => 'required',
+                'hall_id' => 'required',
+                'phn_number' => 'required',
+                'blood_group' => 'required',
+                'profile_image' =>'image|nullable|max:1999'
+            ]);
+        }
+        else
+        {
+            $this->validate($request,[
+                'dept_name' => 'required',
+                'dept_post' => 'required',
+                'hall_name' => 'required',
+                'hall_post' => 'required',
+                'phn_number' => 'required',
+                'blood_group' => 'required',
+                'profile_image' =>'image|nullable|max:1999'
+            ]);
+        }
 
-        if(auth()->user()->id !== $user->user_id )
+        if(auth()->user()->id !== $profile->user_id )
         {
             return redirect('/')->with('error','Unauthorized Page!');
         }
@@ -155,18 +207,28 @@ class ProfilesController extends Controller
         }*/
         //Update user
         //$user = user::find($id);
-        $user->reg_number = $request->input('reg_number');
-        $user->dept_name = $request->input('dept_name');
-        $user->phn_number = $request->input('phn_number');
-        $user->blood_group = $request->input('blood_group');
-        if($request->hasfile('profile_image')){
-            if($user->profile_image != 'noProfileImage.jpg')
-            {
-                Storage::delete('public/profile_image/'.$user->profile_image);
-            }
-            $user->profile_image = $fileNameToStore;
+        if(Auth::user()->user_type != 1)
+        {
+            $profile->reg_number = $request->input('reg_number');
+            $profile->hall_id = $request->input('hall_id');
         }
-        $user->save();
+        else
+        {
+            $profile->dept_post = $request->input('dept_post');
+            $profile->hall_post = $request->input('hall_post');
+        }
+        $profile->dept_name = $request->input('dept_name');
+        $profile->hall_name = $request->input('hall_name');
+        $profile->phn_number = $request->input('phn_number');
+        $profile->blood_group = $request->input('blood_group');
+        if($request->hasfile('profile_image')){
+            if($profile->profile_image != 'noProfileImage.jpg')
+            {
+                Storage::delete('public/profile_image/'.$profile->profile_image);
+            }
+            $profile->profile_image = $fileNameToStore;
+        }
+        $profile->save();
         
         return redirect('/dashboard')->with('success', 'Profile Updated');
     }

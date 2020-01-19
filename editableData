@@ -48,18 +48,187 @@
 </form>
 
 <div class="card-block">
-                              <h5 class="card-title"> <a href ="/posts/{{$notification->data['post_id']}}">{{$notification->data['commentator_id'] }} has commented on post:{{$notification->data['post_id'] }}</a></h5>
-                              <small>{{$notification->created_at->diffForHumans()}}</small>
-                          </div>
+<h5 class="card-title"> <a href ="/posts/{{$notification->data['post_id']}}">{{$notification->data['commentator_id'] }} has commented on post:{{$notification->data['post_id'] }}</a></h5>
+<small>{{$notification->created_at->diffForHumans()}}</small>
+</div>
 
-                          <a class="dropdown-item" href="/">Notify</a>  
-                      <a class="dropdown-item" href="#">
-                        @foreach(Auth::user()->notifications as $notification)
-                          <div class="card bg-light mb-3">
-                            <div class="card-header">
-                                <h5 class="card-title"><a href ="/posts/{{$notification->data['post_id']}}">{{$notification->data['commentator_id'] }} has commented on post:{{$notification->data['post_id'] }}</a></h5>
-                                <h6 class="card-subtitle mb-2 text-muted">{{$notification->created_at->diffForHumans()}}</h6>
-                            </div>
-                          </div>
-                         @endforeach
-                      </a> 
+<a class="dropdown-item" href="/">Notify</a>  
+<a class="dropdown-item" href="#">
+  @foreach(Auth::user()->notifications as $notification)
+    <div class="card bg-light mb-3">
+      <div class="card-header">
+      <h5 class="card-title"><a href ="/posts/{{$notification->data['post_id']}}">{{$notification->data['commentator_id'] }} has commented on post:{{$notification->data['post_id'] }}</a></h5>
+      <h6 class="card-subtitle mb-2 text-muted">{{$notification->created_at->diffForHumans()}}</h6>
+      </div>
+    </div>
+  @endforeach
+</a> 
+
+@if(count($services) > 0)
+<ul class="list-group">    
+  @foreach($services as $service)
+    <li class="list-group-item">{{$service}}</li>
+  @endforeach
+</ul>
+@endif
+
+
+
+<!-- Edit Button -->
+<a href = "/posts/{{$post->id}}/edit" class ="btn btn-primary btn-sm" style = "margin-left:420px;">Edit</a>
+<!-- Delete Button -->            
+<button type="submit" class="btn btn-danger float-right btn-sm">Delete</button>
+
+@if(AUTH::guest())
+<p><a class="btn btn-primary btn-lg" href="/login" role="button">Login</a><a class="btn btn-success btn-lg" href="/register" role="button">Register</a></p>
+@endif
+
+
+
+<div class="jumbotron text-center">
+        <h1>{{$title}}</h1>
+        <p>This is a website of Submitting Problem regarding Hall</p>
+        
+    </div>
+
+
+//comment
+    <!-- Edit Button -->
+                        <a href = "/comments/{{$comment->id}}/edit" class ="btn btn-primary">Edit</a>
+                        <!-- Delete Button -->            
+                        <button type="submit" class="btn btn-danger float">Delete</button>
+
+<!-- navbar -->
+<div class="navbar-wrapper">
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container"><link href="css/LandingAdded/style.css" rel="stylesheet">
+					<!-- Responsive navbar -->
+					<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+				</a>
+					<h1 class="brand"><a href="index.html">Maxim</a></h1>
+					<!-- navigation -->
+					<nav class="pull-right nav-collapse collapse">
+						<ul id="menu-main" class="nav">
+							<li><a title="team" href="#about">About</a></li>
+							<li><a title="services" href="#services">Services</a></li>
+							<li><a title="works" href="#works">Works</a></li>
+							<li><a title="blog" href="#blog">Blog</a></li>
+							<li><a title="contact" href="#contact">Contact</a></li>
+							<li><a href="page.html">Page</a></li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</div>
+<!--endofNavbar-->
+
+//Previous navbar
+<nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
+  <div class="container">
+      <a class="navbar-brand" href="{{ url('/') }}">
+          {{ config('app.name', 'Laravel') }}
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <!-- Left Side Of Navbar 
+          <ul class="navbar-nav mr-auto">
+
+          </ul>-->
+          <!-- Own code Navbar -->
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/services">Notices</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/posts">Newsfeed</a>
+            </li>
+            <!--<li class="nav-item">
+              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+              <div class="dropdown-menu" aria-labelledby="dropdown01">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </li>-->
+          </ul>
+
+
+          <!-- Right Side Of Navbar -->
+          <ul class="navbar-nav ml-auto">
+              <!-- Authentication Links -->
+              @guest
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                  </li>
+                  @if (Route::has('register'))
+                      <li class="nav-item">
+                          <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                      </li>
+                  @endif
+              @else
+                  <li class="nav-item dropdown">
+                    <a id="navbarDropdown" class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                      <i class="fa fa-bell"></i><span class=""></span>
+                  </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="/">Notifications</a>  
+                        @if(Auth::user()->user_type == 1)
+                          @foreach(Auth::user()->notifications as $notification)
+                            <a class="dropdown-item" href="/posts/{{$notification->data['post_id']}}" onMouseOver="this.style.color='#0F0'" onMouseOut="this.style.color='#000'"><h5>{{$notification->data['commentator_name'] }} has created a post</h5>
+                            <small>{{$notification->created_at->diffForHumans()}}</small>
+                            </a>  
+                          @endforeach
+                        @else
+                          @foreach(Auth::user()->notifications as $notification)
+                              <a class="dropdown-item" href="/posts/{{$notification->data['post_id']}}" onMouseOver="this.style.color='#0F0'" onMouseOut="this.style.color='#000'"><h5>{{$notification->data['commentator_name'] }} has commented on your post</h5>
+                              <small>{{$notification->created_at->diffForHumans()}}</small>
+                              </a>  
+                          @endforeach
+                        @endif
+                      </a>   
+                    </div> 
+                  </li>
+                  
+
+
+                  <li class="nav-item dropdown">
+                    
+                      <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                          {{ Auth::user()->name }} <span class="caret"></span>
+                      </a>
+
+                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/profile">Profile</a>
+                        <a class="dropdown-item" href="/dashboard">Dashboard</a>
+                        <a class="dropdown-item" href="/posts/create">Create Post</a>
+                          <a class="dropdown-item" href="{{ route('logout') }}"
+                              onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();">
+                              {{ __('Logout') }}
+                          </a>
+                          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                              @csrf
+                          </form>
+                      </div>
+                  </li>
+              @endguest
+          </ul>
+      </div>
+  </div>
+</nav>
+
+/////

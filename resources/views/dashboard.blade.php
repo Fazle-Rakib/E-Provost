@@ -24,13 +24,26 @@
                                 <tr>
                                     <td><a href = "/posts/{{$post->id}}">{{$post->title}}</a></td>
                                     <td>
-                                        <form method="POST" action="{{ route('posts.destroy',$post->id)}}">
+                                        <form id="delete-form" method="POST" action="{{ route('posts.destroy',$post->id)}}">
                                             @method('DELETE')
                                             @csrf
-                                            <!-- Edit Button -->
-                                            <a href = "/posts/{{$post->id}}/edit" class ="btn btn-primary" style = "margin-left:330px;">Edit</a>
-                                            <!-- Delete Button -->            
-                                            <button type="submit" class="btn btn-danger float-right">Delete</button>
+                                            <div class="dropdown float-right">
+                                                <ul class="navbar-nav ml-auto">
+                                                    <li class="nav-item dropdown">
+                                                        <a id="navbarDropdown"  href="#" role="button float-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                                            <i class="fa fa-cog"></i><span class=""></span>
+                                                        </a>
+                                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" >
+                                                            <a class="dropdown-item" href="/posts/{{$post->id}}/edit" onMouseOver="this.style.color='#808080'" onMouseOut="this.style.color='#000'">Edit</a>
+                                                            <a class="dropdown-item" href="{{ route('posts.destroy',$post->id)}} "
+                                                                onclick="event.preventDefault();
+                                                                                document.getElementById('delete-form').submit();"  onMouseOver="this.style.color='#808080'" onMouseOut="this.style.color='#000'" >
+                                                                {{ __('Delete') }}
+                                                            </a>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </form>
                                     </td>
                                 </tr>

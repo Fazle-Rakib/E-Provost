@@ -15,10 +15,6 @@
                     <div class="col-md-4">
                         <div class="profile-img">
                             <img src="/storage/profile_image/{{$user_id->profile_image}}" alt=""/>
-                            <div class="file btn btn-lg btn-primary">
-                                Change Photo
-                                <input type="file" name="file"/>
-                            </div>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -37,9 +33,11 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-md-2">
-                        <a href = "/profile/{{$user->id}}/edit" class ="btn btn-primary">Edit</a>
-                    </div>
+                    @if(auth()->user()->id == $user->id)
+                        <div class="col-md-2">
+                            <a href = "/profile/{{$user->id}}/edit" class ="btn btn-primary">Edit</a>
+                        </div>
+                    @endif
                 </div>
                 <div class="row">
                     <div class="col-md-4">
@@ -55,22 +53,53 @@
                                         <p>{{$user_id->dept_name}}</p>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label>Registration Number</label>
+                                @if(Auth::user()->user_type == 1)
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Post In Department</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>{{$user_id->dept_post}}</p>
+                                        </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <p>{{$user_id->reg_number}}</p>
-                                    </div>
-                                </div>
+                                @endif
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label>Hall Name</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <p>Kshiti Ghelani</p>
+                                        <p>{{$user_id->hall_name}}</p>
                                     </div>
                                 </div>
+                                @if(Auth::user()->user_type != 1)
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Hall Id</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>{{$user_id->hall_id}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Registration Number</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>{{$user_id->reg_number}}</p>
+                                        </div>
+                                    </div>
+                                @else
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Post in Hall</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>{{$user_id->hall_post}}</p>
+                                        </div>
+                                    </div>
+                                @endif
+                                
+                                
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label>Blood Group</label>

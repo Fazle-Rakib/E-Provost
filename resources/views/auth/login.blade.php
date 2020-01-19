@@ -53,12 +53,8 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary" style ="margin-left: 0px; padding: 10px 26px;">
                                     {{ __('Login') }}
-                                </button>
-                                
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login as Provost') }}
                                 </button>
 
                                 @if (Route::has('password.request'))

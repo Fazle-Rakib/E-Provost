@@ -18,11 +18,11 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href=" {{asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
     @include('inc.navbar')
-        <div class="container" style="margin-top:15px;">
+        <div class="" style="margin-top:0px;">
             @include('inc.messages')
             @yield('content')
         </div>

@@ -23,12 +23,12 @@
               <a class="nav-link" href="/about">About</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/services">Services</a>
+              <a class="nav-link" href="/services">Notices</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/posts">Newsfeed</a>
             </li>
-            <li class="nav-item">
+            <!--<li class="nav-item">
               <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
             </li>
             <li class="nav-item dropdown">
@@ -38,7 +38,7 @@
                 <a class="dropdown-item" href="#">Another action</a>
                 <a class="dropdown-item" href="#">Something else here</a>
               </div>
-            </li>
+            </li>-->
           </ul>
 
 
@@ -61,11 +61,19 @@
                   </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                       <a class="dropdown-item" href="/">Notifications</a>  
-                        @foreach(Auth::user()->notifications as $notification)
-                            <a class="dropdown-item" href="/posts/{{$notification->data['post_id']}}" onMouseOver="this.style.color='#0F0'" onMouseOut="this.style.color='#000'"><h5>{{$notification->data['commentator_name'] }} has commented on your post</h5>
+                        @if(Auth::user()->user_type == 1)
+                          @foreach(Auth::user()->notifications as $notification)
+                            <a class="dropdown-item" href="/posts/{{$notification->data['post_id']}}" onMouseOver="this.style.color='#0F0'" onMouseOut="this.style.color='#000'"><h5>{{$notification->data['commentator_name'] }} has created a post</h5>
                             <small>{{$notification->created_at->diffForHumans()}}</small>
                             </a>  
-                         @endforeach
+                          @endforeach
+                        @else
+                          @foreach(Auth::user()->notifications as $notification)
+                              <a class="dropdown-item" href="/posts/{{$notification->data['post_id']}}" onMouseOver="this.style.color='#0F0'" onMouseOut="this.style.color='#000'"><h5>{{$notification->data['commentator_name'] }} has commented on your post</h5>
+                              <small>{{$notification->created_at->diffForHumans()}}</small>
+                              </a>  
+                          @endforeach
+                        @endif
                       </a>   
                     </div> 
                   </li>

@@ -14,7 +14,7 @@ class AddUserTypeToUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->tinyInteger('user_type');
+            $table->tinyInteger('user_type')->default(0);
         });
     }
 

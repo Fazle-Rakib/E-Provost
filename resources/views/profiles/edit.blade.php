@@ -24,20 +24,78 @@
                                 @enderror
                             </div>
                         </div>
-
                         <div class="form-group row">
-                            <label for="reg_number" class="col-md-4 col-form-label text-md-right">{{ __('Registration Number') }}</label>
+                            <label for="hall_name" class="col-md-4 col-form-label text-md-right">{{ __('Hall Name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="reg_number" type="text" required pattern="[0-9]{10}" class="form-control @error('reg_number') is-invalid @enderror" name="reg_number" value="{{ $user->reg_number }}" required autocomplete="reg_number" autofocus>
+                                <input id="hall_name" type="text" class="form-control @error('hall_name') is-invalid @enderror" name="hall_name" value="{{ $user->hall_name }}" required autocomplete="hall_name" autofocus>
 
-                                @error('reg_number')
+                                @error('hall_name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
                         </div>
+                        <!-- Provost -->
+                        @if(Auth::user()->user_type == 1)
+                            <div class="form-group row">
+                                <label for="dept_post" class="col-md-4 col-form-label text-md-right">{{ __('Post in Department') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="dept_post" type="text" class="form-control @error('dept_post') is-invalid @enderror" name="dept_post" value="{{ $user->dept_post }}" required autocomplete="dept_post" autofocus>
+
+                                    @error('dept_post')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="hall_post" class="col-md-4 col-form-label text-md-right">{{ __('Post in Hall') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="hall_post" type="text" class="form-control @error('hall_post') is-invalid @enderror" name="hall_post" value="{{ $user->hall_post }}" required autocomplete="hall_post" autofocus>
+
+                                    @error('hall_post')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                        <!-- Student -->
+                        @else
+                            <div class="form-group row">
+                                <label for="reg_number" class="col-md-4 col-form-label text-md-right">{{ __('Registration Number') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="reg_number" type="text" required pattern="[0-9]{10}" class="form-control @error('reg_number') is-invalid @enderror" name="reg_number" value="{{ $user->reg_number }}" required autocomplete="reg_number" autofocus>
+
+                                    @error('reg_number')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="hall_id" class="col-md-4 col-form-label text-md-right">{{ __('Hall Id') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="hall_id" type="text" class="form-control @error('hall_id') is-invalid @enderror" name="hall_id" value="{{ $user->hall_id }}" required autocomplete="hall_id" autofocus>
+
+                                    @error('hall_id')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                        @endif
 
                         <div class="form-group row">
                             <label for="blood_group" class="col-md-4 col-form-label text-md-right">{{ __('Blood Group') }}</label>
