@@ -3,8 +3,8 @@
 
 @section('content')
 
-    <a href="/posts" class="btn btn-primary">Go Back</a>
-    <!--    <a href="javascript:history.back()" class="btn btn-primary">Go Back</a>    -->
+    <!-- <a href="/posts" class="btn btn-primary">Go Back</a>-->
+    <a href="javascript:history.back()" class="btn btn-primary">Go Back</a>    
     <br><br>
     <div class="card card-inverse" style="background-color: #89ABE3FF; border-color: #89ABE5FF;">
         <div class="card-block">

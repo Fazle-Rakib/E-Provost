@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<div class = "container">
     <h1>Edit Post</h1>
     <form method="POST" action="{{ route('posts.update',$post->id)}}" enctype = "multipart/form-data">
         <div class="form-group">
@@ -18,4 +19,5 @@
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+</div>
 @endsection

@@ -17,11 +17,13 @@ class PagesController extends Controller
         
         $user_id = User::where('user_type',1)->get();
         $ui= $user_id->map->only(['id']);
+        //return $ui;
         if(count($user_id) > 0)
         {
-           
-
-            $users = Profile::where('user_id',$ui)->get();
+            //$inprogress = Taskinteraction::where('status','=','Unassigned')->get();
+            $users = Profile::whereIn('user_id',$ui)->latest()->paginate(3);
+            //$users = $users->sortBy('created_at');
+            //return $users;
             return view('pages.index',compact('title'))->with('posts',$posts)->with('users',$users);
         }
         return view('pages.index',compact('title'))->with('posts',$posts);

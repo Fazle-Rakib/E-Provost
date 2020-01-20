@@ -23,7 +23,7 @@
               <a class="nav-link" href="/about">About</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/services">Notices</a>
+              <a class="nav-link" href="/notices">Notices</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/posts">Newsfeed</a>
@@ -57,12 +57,18 @@
               @else
                   <li class="nav-item dropdown">
                     <a id="navbarDropdown" class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                      <i class="fa fa-bell"></i><span class=""></span>
+                    <i class="fa fa-bell"></i><span class="badge badge-pill badge-primary pull-right">{{Auth::user()->unreadNotifications->count()}}</span>
                   </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                       <a class="dropdown-item" href="/">Notifications</a>  
                         @if(Auth::user()->user_type == 1)
-                          @foreach(Auth::user()->notifications as $notification)
+                        @foreach(Auth::user()->unreadNotifications as $notification)
+                            <a style="background-color:gray;" class="dropdown-item" href="/posts/{{$notification->data['post_id']}}" onMouseOver="this.style.color='#0F0'" onMouseOut="this.style.color='#000'"><h5>{{$notification->data['commentator_name'] }} has created a post</h5>
+                            <small>{{$notification->created_at->diffForHumans()}}</small>
+                            </a>  
+                            
+                          @endforeach
+                          @foreach(Auth::user()->readNotifications as $notification)
                             <a class="dropdown-item" href="/posts/{{$notification->data['post_id']}}" onMouseOver="this.style.color='#0F0'" onMouseOut="this.style.color='#000'"><h5>{{$notification->data['commentator_name'] }} has created a post</h5>
                             <small>{{$notification->created_at->diffForHumans()}}</small>
                             </a>  
@@ -89,7 +95,13 @@
                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="/profile">Profile</a>
                         <a class="dropdown-item" href="/dashboard">Dashboard</a>
-                        <a class="dropdown-item" href="/posts/create">Create Post</a>
+                        <a class="dropdown-item" href="/posts/create">
+                          @if(Auth::user()->user_type == 1)
+                          Create Notice
+                          @else
+                          Create Post
+                          @endif
+                        </a>
                           <a class="dropdown-item" href="{{ route('logout') }}"
                               onclick="event.preventDefault();
                                             document.getElementById('logout-form').submit();">

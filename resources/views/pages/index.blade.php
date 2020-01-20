@@ -26,9 +26,9 @@
                 <li><a href="/about" class="button big">Learn More</a></li>
             </ul>
         </section>
-
-    <!-- Items -->
-        <h2 style = "margin-left:360px; float-right;">Newsfeed</h2>
+    <hr>
+    <!-- Posts -->
+        <h2 style = "margin-left:360px; float-right;">Newsfeed</h2><br>
         <section class="main items">
             @if(count($posts) > 0)
                 @foreach($posts as $post)
@@ -53,30 +53,34 @@
              </div>
         </section>
 
-
+    <hr>
     <!--Profile Card-->
     <!-- Add icon library -->
     @if(count($users) > 0)
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    @foreach($users as $user_id)
-        <div class="card float-left" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);max-width: 300px; min-width:250px;
-        margin: auto;text-align: center;">
-        <img src="/storage/profile_image/{{$user_id->profile_image}}" alt="John" style="width:100%">
-        <h1>{{$user_id->user->name}}</h1>
-        <p class="title" style="color: grey;font-size: 18px;">{{$user_id->hall_post}}</p>
-        <p>{{$user_id->hall_name}} Hall</p>
-        <!--<p><button style="border: none;outline: 0;display: inline-block;padding: 8px;color: white;
-             background-color: #000;text-align: center;cursor: pointer;width: 100%;font-size: 18px;"></p>-->
-        
-        <form method="GET" action="{{route('profile.show',$user_id->user_id)}}">
-            <div class="form-group">
-                @csrf            
-                <input type="submit" class="button" style="border: none;outline: 0;display: inline-block;padding: 6px;color: white;
-                background-color: #000;text-align:center;cursor: pointer;width: 100%;font-size: 18px;" value="More" />
+    <br><h2 style = "margin-left:290px; float-right;">Administration</h2><br>
+    <div class="row">
+        @foreach($users as $user_id)
+            <div class="card float-left" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);max-width: 300px; min-width:250px; 
+            margin: auto;text-align: center;" >
+            <img src="/storage/profile_image/{{$user_id->profile_image}}" alt="John" style="max-height: 250px;">
+                <br>
+                <h1 style="none; font-size:100%; height: 35px;" >{{$user_id->user->name}}</h1>
+                <p class="title" style="color: grey;font-size: 18px;">{{$user_id->hall_post}}</p>
+                <p>{{$user_id->hall_name}} Hall</p>
+                <!--<p><button style="border: none;outline: 0;display: inline-block;padding: 8px;color: white;
+                    background-color: #000;text-align: center;cursor: pointer;width: 100%;font-size: 18px;"></p>-->
+                
+                <form method="GET" action="{{route('profile.show',$user_id->user_id)}}">
+                    <div class="form-group">
+                        @csrf            
+                        <input type="submit" class="button" style="border: none;outline: 0;display: inline-block;padding: 6px;color: white;
+                        background-color: #000;text-align:center;cursor: pointer;width: 100%;font-size: 18px;" value="More" />
+                    </div>
+                </form>    
             </div>
-        </form>    
-        </div>
-    @endforeach
+        @endforeach
+    </div>
     @endif
     <!-- CTA -->
         <section id="cta" class="main special">

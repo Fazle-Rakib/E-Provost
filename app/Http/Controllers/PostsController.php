@@ -9,6 +9,7 @@ use App\Notifications\CommentsNotification;
 use App\User;
 use App\Post;
 use App\Comment;
+use App\Profile;
 
 class PostsController extends Controller
 {
@@ -34,7 +35,11 @@ class PostsController extends Controller
         //$posts = Post::select('SELECT * FROM posts');
         //$posts = Post::orderBy('title','desc')->take(1)->get();
         //$posts = Post::orderBy('title','desc')->get();
-        $posts = Post::orderBy('created_at','desc')->paginate(4);
+        
+        //$posts = Post::orderBy('created_at','desc')->paginate(6);
+        $posts = Post::with("user.profile")->latest()->paginate(3);
+        //return $posts;
+        //return User::find(10)->profile->profile_image;
         return view('posts.index')->with('posts',$posts);
     }
 
@@ -108,6 +113,15 @@ class PostsController extends Controller
     public function show($id)
     {
         $post =  Post::find($id);
+        if(!Auth::guest())
+        {
+            $user =  Auth::user();
+            $notification = auth()->user()->notifications()->where('data->post_id',$post->id)->get();
+            if($notification) {
+                $notification->markAsRead();
+            }
+            //$user->unreadNotifications()->where('type', 'App\Notifications\CommentsNotification')->where('data->post_id', $post->id)->markAsRead();
+        }
         return view('posts.show')->with('post',$post);
     }
 
@@ -188,6 +202,18 @@ class PostsController extends Controller
     public function destroy($id)
     {
         $post = POST::find($id);
+        //Notification for Provost
+        if(!Auth::guest())
+        {
+            $users = User::where('user_type',1)->get();
+            foreach($users as $user)
+            {
+                if($user != Auth::user())
+                {
+                    $user->notifications()->where('type', 'App\Notifications\CommentsNotification')->where('data->post_id', $post->id)->delete();
+                }
+            }
+        }
         if(auth()->user()->id !== $post->user_id && auth()->user()->user_type != 1)
         {
             return redirect('/posts')->with('error','Unauthorized Page!');
@@ -197,6 +223,8 @@ class PostsController extends Controller
             Storage::delete('public/cover_image/'.$post->cover_iamge);
         }
         $post->delete();
+
+        
         return redirect('/posts')->with('success', 'Post Removed Successfully');
     }
 }

@@ -7,7 +7,10 @@
 @extends('layouts.app')
 
 @section('content')
-    <a href="/dashboard" class="btn btn-primary">Go Back</a>
+<div class="container">
+    <br>
+    <!--<a href="/dashboard" class="btn btn-primary">Go Back</a> -->
+    <a href="javascript:history.back()" class="btn btn-primary">Go Back</a>   
 
 <div class="container emp-profile">
             <form method="post">
@@ -123,5 +126,5 @@
                 </div>
             </form>           
         </div>
-
+</div>
 @endsection
