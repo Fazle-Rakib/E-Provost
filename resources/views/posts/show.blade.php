@@ -2,14 +2,27 @@
 
 
 @section('content')
-
+<div class="container">
+    <br>
     <!-- <a href="/posts" class="btn btn-primary">Go Back</a>-->
     <a href="javascript:history.back()" class="btn btn-primary">Go Back</a>    
     <br><br>
-    <div class="card card-inverse" style="background-color: #89ABE3FF; border-color: #89ABE5FF;">
-        <div class="card-block">
-            <h4 class="card-title">{{$post->title}}
+    <div class="card card-inverse" style="background-color: #ECF0F1; width:90%; margin-left:40px;">
+        <div class="card-body d-flex flex-row" style="height:0%">
+            
+            <a href="/profile/{{$post->user->id}}"><img src="/storage/profile_image/{{$post->user->profile->profile_image}}" class="rounded-circle mr-3" height="70px" width="70px" alt="avatar"></a>
+                <div style="margin-top:10px;">
+                    <!-- Title -->
+                    
+                    <h5 class="card-title font-weight-bold mb-2">{{$post->user->name}}</h5>
+                    <!-- Subtitle -->
+                    <p class="card-text"><i class="fa fa-clock-o"></i>{{$post->created_at->diffForHumans()}}</p>
+
+                </div>
+
+            
             <!--Buttons-->
+            <div class="float-right" style="margin-left:750px;">
             @if(!Auth::guest())
                 @if(Auth::user()->id == $post->user_id || Auth::user()->user_type == 1)
                     <form id="delete-form" method="POST" action="{{ route('posts.destroy',$post->id)}}" style="float:right;">
@@ -39,21 +52,24 @@
                     </form>
                 @endif
             @endif
-            </h4>
-            <hr>
-                <p class="card-text">{!!$post->body!!}</p>
-            <br>
+            </div>
+            
+        </div>
+        <div class="card-body ">
             @if($post->cover_image != "noimage.jpg")
-            <img style ="width:100%" src="/storage/cover_image/{{$post->cover_image}}">
+            <img class="card-img rounded-0" src="/storage/cover_image/{{$post->cover_image}}" alt="Card image cap">
             @endif
-            <small>Written on {{$post->created_at}} By {{$post->user->name}}</small>
+            <br><br>
+            <h3 class="card-text" style="color: grey;font-size: 30px; text-align:center;" ><u><b>{{$post->title}}</b></u></h3>
+            <p class="card-text">{!!$post->body!!}</p>
         </div>
     </div>
     
 
-    
-        <hr>
+        <br>
         @if(!Auth::guest())
+        <div class="container" style=" background-color: #ECF0F1; width:90%; margin-left:40px; height:11rem;" >
+        <br>
         <h4>Add comment</h4>
         <form method="POST" action="{{route('comments.store')}}">
             <div class="form-group">
@@ -65,12 +81,17 @@
                 <input type="submit" class="btn btn-success" value="Add Comment" />
             </div>
         </form>
+        </div>
         @endif
     <!--Display Comments-->   
     @if(count($post->comments) > 0)
-    <h4>Display Comments</h4>
-    @include('posts.commentsDisplay', ['comments' => $post->comments, 'post_id' => $post->id])
-    <hr>
-    @endif
+    <div class="container" style=" background-color: #ECF0F1; width:90%; margin-left:40px;" >
+        <h4>Display Comments</h4>
+        @include('posts.commentsDisplay', ['comments' => $post->comments, 'post_id' => $post->id])
+        <hr>
+        @endif
+    </div>
+
+</div>
     <br><br>
 @endsection

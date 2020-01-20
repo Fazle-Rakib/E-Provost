@@ -4,10 +4,10 @@
 @section('content')
 
    <!-- Header -->
-   <header id="header" class="alt">
+   <header id="header" class="alt" style="color:white; background-size:cover">
     <div class="inner">
-        <h1>E-Provost</h1>
-        <p>A online platform to communicate with <a href="/">E-Provost</a></p>
+        <h1 >E-Provost</h1>
+        <p style="color:white; background-size:cover">A online platform to communicate with <a href="/">E-Provost</a></p>
     </div>
     </header>
 
@@ -16,14 +16,15 @@
 
     <!-- Banner -->
         <section id="intro" class="main">
-            <span class="icon fa-diamond major"></span>
+            <span class="icon fa-diamond major" ></span>
             <h2>A Online Platform</h2>
             <p>Goal of ​ E-Provost ​ is to inform the hall related problem to
                 hall provost more easily and precisely .<br> ​ E-Provost ​ is an online based
                 system, based on relational database <br>and the data shared by it’s
                 users.</p>
             <ul class="actions">
-                <li><a href="/about" class="button big">Learn More</a></li>
+                <li><a href="/about" class="button big" style="background-image: linear-gradient(to right, #02AAB0 0%, #00CDAC 51%, #02AAB0 100%);
+                    .btn-grad:hover ;background-position: right center;">Learn More</a></li>
             </ul>
         </section>
     <hr>

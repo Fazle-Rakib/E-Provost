@@ -36,10 +36,12 @@
                             </ul>
                         </div>
                     </div>
-                    @if(auth()->user()->id == $user->id)
-                        <div class="col-md-2">
-                            <a href = "/profile/{{$user->id}}/edit" class ="btn btn-primary">Edit</a>
-                        </div>
+                    @if(!Auth::Guest())
+                        @if(auth()->user()->id == $user->id)
+                            <div class="col-md-2">
+                                <a href = "/profile/{{$user->id}}/edit" class ="btn btn-primary">Edit</a>
+                            </div>
+                        @endif
                     @endif
                 </div>
                 <div class="row">
@@ -56,7 +58,7 @@
                                         <p>{{$user_id->dept_name}}</p>
                                     </div>
                                 </div>
-                                @if(Auth::user()->user_type == 1)
+                                @if($user->user_type == 1)
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label>Post In Department</label>
@@ -74,7 +76,7 @@
                                         <p>{{$user_id->hall_name}}</p>
                                     </div>
                                 </div>
-                                @if(Auth::user()->user_type != 1)
+                                @if($user->user_type != 1)
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label>Hall Id</label>

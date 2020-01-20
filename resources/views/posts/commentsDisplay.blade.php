@@ -1,3 +1,4 @@
+@php($comments = \App\Comment::where('post_id', $post->id)->latest()->get())
 @foreach($comments as $comment)
     <div class="card bg-light border-primary mb-3">
         <div class="card-header">
