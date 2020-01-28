@@ -130,7 +130,7 @@ class CommentsController extends Controller
     public function destroy($id)
     {
         $comment =  Comment::find($id);
-        if(auth()->user()->id !== $comment->user_id )
+        if(auth()->user()->id !== $comment->user_id && auth()->user()->user_type != 1)
         {
             return redirect('/posts')->with('error','Unauthorized Page!');
         }

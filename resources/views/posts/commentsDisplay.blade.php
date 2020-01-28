@@ -3,8 +3,8 @@
     <div class="card bg-light border-primary mb-3">
         <div class="card-header">
             @if(!Auth::guest())
-                    @if(Auth::user()->id == $comment->user_id)
-                        <form id="delete-form" method="POST" action="{{ route('comments.destroy',$comment->id)}}">
+                    @if(Auth::user()->id == $comment->user_id || Auth::user()->user_type == 1)
+                        <form id="delete-form1" method="POST" action="{{ route('comments.destroy',$comment->id)}}">
                             @method('DELETE')
                             @csrf
                             <div class="dropdown float-right">
@@ -14,12 +14,14 @@
                                             <i class="fa fa-cog" style="color:black; margin-right:5px; margin-top:0px"></i><span class=""></span>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" >
+                                            @if(Auth::user()->id == $comment->user_id)
                                             <!-- Edit Button -->
                                                 <a class="dropdown-item" href="/comments/{{$comment->id}}/edit" onMouseOver="this.style.color='#808080'" onMouseOut="this.style.color='#000'">Edit</a>
-                                            <!-- Delete Button -->  
+                                            @endif
+                                                <!-- Delete Button -->  
                                                 <a class="dropdown-item" href="{{ route('comments.destroy',$comment->id)}} "
                                                 onclick="event.preventDefault();
-                                                                document.getElementById('delete-form').submit();"  onMouseOver="this.style.color='#808080'" onMouseOut="this.style.color='#000'" >
+                                                                document.getElementById('delete-form1').submit();"  onMouseOver="this.style.color='#808080'" onMouseOut="this.style.color='#000'" >
                                                 {{ __('Delete') }}
                                                 </a>
                                         </div>

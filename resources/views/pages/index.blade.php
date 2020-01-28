@@ -62,29 +62,26 @@
     <br><h2 style = "margin-left:290px; float-right;">Administration</h2><br>
     <div class="row">
         @foreach($users as $user_id)
-            <div class="card float-left" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);max-width: 300px; min-width:250px; 
+            <div class="card float-left" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);max-width: 290px; min-width:290px; 
             margin: auto;text-align: center;" >
             <img src="/storage/profile_image/{{$user_id->profile_image}}" alt="John" style="max-height: 250px;">
                 <br>
                 <h1 style="none; font-size:100%; height: 35px;" >{{$user_id->user->name}}</h1>
-                <p class="title" style="color: grey;font-size: 18px;">{{$user_id->hall_post}}</p>
+                <p class="title" style="color: grey;font-size: 18px; margin-top: 10px;">{{$user_id->hall_post}}</p>
                 <p>{{$user_id->hall_name}} Hall</p>
                 <!--<p><button style="border: none;outline: 0;display: inline-block;padding: 8px;color: white;
                     background-color: #000;text-align: center;cursor: pointer;width: 100%;font-size: 18px;"></p>-->
-                
                 <form method="GET" action="{{route('profile.show',$user_id->user_id)}}">
-                    <div class="form-group">
                         @csrf            
                         <input type="submit" class="button" style="border: none;outline: 0;display: inline-block;padding: 6px;color: white;
                         background-color: #000;text-align:center;cursor: pointer;width: 100%;font-size: 18px;" value="More" />
-                    </div>
-                </form>    
+                </form>   
             </div>
         @endforeach
     </div>
     @endif
     <!-- CTA -->
-        <section id="cta" class="main special">
+        <!--<section id="cta" class="main special">
             <h2>Etiam veroeros lorem</h2>
             <p>Phasellus ac augue ac magna auctor tempus proin<br />
             accumsan lacus a nibh commodo in pellentesque dui<br />
@@ -92,7 +89,7 @@
             <ul class="actions">
                 <li><a href="#" class="button big">Get Started</a></li>
             </ul>
-        </section>
+        </section>-->
 
     <!-- Main -->
     <!--

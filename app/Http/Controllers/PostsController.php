@@ -212,7 +212,13 @@ class PostsController extends Controller
                 {
                     $user->notifications()->where('type', 'App\Notifications\CommentsNotification')->where('data->post_id', $post->id)->delete();
                 }
+            }            
+            if($post->user_id != Auth::user()->id)
+            {
+                $post_user = User::where('id',$post->user_id)->get();
+                $post_user->notifications()->where('type', 'App\Notifications\CommentsNotification')->where('data->post_id', $post->id)->delete();
             }
+            
         }
         if(auth()->user()->id !== $post->user_id && auth()->user()->user_type != 1)
         {

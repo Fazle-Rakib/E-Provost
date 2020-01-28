@@ -57,25 +57,30 @@
               @else
                   <li class="nav-item dropdown">
                     <a id="navbarDropdown" class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                    <i class="fa fa-bell"></i><span class="badge badge-pill badge-primary pull-right">{{Auth::user()->unreadNotifications->count()}}</span>
+                    <i class="fa fa-bell" style="margin-top:9px;"></i><span class="badge badge-pill badge-primary pull-right">{{Auth::user()->unreadNotifications->count()}}</span>
                   </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                       <a class="dropdown-item" href="/">Notifications</a>  
                         @if(Auth::user()->user_type == 1)
                         @foreach(Auth::user()->unreadNotifications as $notification)
-                            <a style="background-color:gray;" class="dropdown-item" href="/posts/{{$notification->data['post_id']}}" onMouseOver="this.style.color='#0F0'" onMouseOut="this.style.color='#000'"><h5>{{$notification->data['commentator_name'] }} has created a post</h5>
+                            <a style="background-color:gray;" class="dropdown-item" href="/posts/{{$notification->data['post_id']}}" onMouseOver="this.style.color='#0F0'" onMouseOut="this.style.color='#000'"><h5 style="letter-spacing: 0rem; text-transform: none;">{{$notification->data['commentator_name'] }} has created a post</h5>
                             <small>{{$notification->created_at->diffForHumans()}}</small>
                             </a>  
                             
                           @endforeach
                           @foreach(Auth::user()->readNotifications as $notification)
-                            <a class="dropdown-item" href="/posts/{{$notification->data['post_id']}}" onMouseOver="this.style.color='#0F0'" onMouseOut="this.style.color='#000'"><h5>{{$notification->data['commentator_name'] }} has created a post</h5>
+                            <a class="dropdown-item" href="/posts/{{$notification->data['post_id']}}" onMouseOver="this.style.color='#0F0'" onMouseOut="this.style.color='#000'"><h5 style="letter-spacing: 0rem; text-transform: none;">{{$notification->data['commentator_name'] }} has created a post</h5>
                             <small>{{$notification->created_at->diffForHumans()}}</small>
                             </a>  
                           @endforeach
                         @else
-                          @foreach(Auth::user()->notifications as $notification)
-                              <a class="dropdown-item" href="/posts/{{$notification->data['post_id']}}" onMouseOver="this.style.color='#0F0'" onMouseOut="this.style.color='#000'"><h5>{{$notification->data['commentator_name'] }} has commented on your post</h5>
+                          @foreach(Auth::user()->unreadNotifications as $notification)
+                              <a style="background-color:gray;" class="dropdown-item" href="/posts/{{$notification->data['post_id']}}" onMouseOver="this.style.color='#0F0'" onMouseOut="this.style.color='#000'"><h5 style="letter-spacing: 0rem; text-transform: none;">{{$notification->data['commentator_name'] }} has commented on your post</h5>
+                              <small>{{$notification->created_at->diffForHumans()}}</small>
+                              </a>  
+                          @endforeach
+                          @foreach(Auth::user()->readNotifications as $notification)
+                              <a class="dropdown-item" href="/posts/{{$notification->data['post_id']}}" onMouseOver="this.style.color='#0F0'" onMouseOut="this.style.color='#000'"><h5 style="letter-spacing: 0rem; text-transform: none;">{{$notification->data['commentator_name'] }} has commented on your post</h5>
                               <small>{{$notification->created_at->diffForHumans()}}</small>
                               </a>  
                           @endforeach

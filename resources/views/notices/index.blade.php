@@ -1,8 +1,8 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
+    <br>
     <h1>Notices</h1>
-    <p>All Notices Posted by Provost will be  here!</p>
     @if(count($notices) > 0)
         <div class="container">
             <div class="row">

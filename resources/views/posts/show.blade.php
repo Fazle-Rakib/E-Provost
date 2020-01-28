@@ -89,8 +89,8 @@
         <h4>Display Comments</h4>
         @include('posts.commentsDisplay', ['comments' => $post->comments, 'post_id' => $post->id])
         <hr>
-        @endif
     </div>
+    @endif
 
 </div>
     <br><br>

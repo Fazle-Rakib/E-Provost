@@ -22,7 +22,7 @@
         as soon as possible.</p>
     </div>
     <br>
-    <h3 style="text-align: center;"> <b>E-Provost Supervised By </b></h3>
+    <h3 style="text-align: center;"> <b>Reviewed & Supervised By </b></h3>
     <br>
     
   
@@ -54,11 +54,11 @@
     <br>
 
     <div class="row">
-        <div class="card float-left" style=" background-color: #F4F6F6; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);max-width: 300px; min-width:250px; height:450px; 
+        <div class="card float-left" style=" background-color: #F4F6F6; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);max-width: 300px; min-width:270px; height:450px; 
         margin: auto;text-align: center;" >
         <img src="{{URL::asset('/images/about/habib.jpg')}}"style="width:100%;margin-top:15px;" alt="avatar">
             <br>
-            <h3 style="none; font-size:125%; height: 35px;margin-top:15px;" ><b>Habib Wahid</b></h3>
+            <h3 style="none; font-size:125%; height: 35px;margin-top:15px;" ><b>Habibur Rahman</b></h3>
         <p class="title" style="margin-top:15px; font-size:23px;"><b>Student</b></p>
         <p><button><a href="https://www.sust.edu/institutes/iict">SWE,IICT,SUST</a></button></p>
             <!--<p><button style="border: none;outline: 0;display: inline-block;padding: 8px;color: white;
@@ -92,5 +92,5 @@
         </div>
     </div>
 
-
+<br>
 @endsection

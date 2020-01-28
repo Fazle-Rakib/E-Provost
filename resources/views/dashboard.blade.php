@@ -73,7 +73,7 @@
                                             <p class="card-text collapse" >{!!str_limit($post->body,71,'...')!!}</p>
                                             
                                             
-                                            <a href="/posts/{{$post->id}}" class="btn btn-primary">Detailes</a>
+                                            <a href="/posts/{{$post->id}}" class="btn btn-primary">Details</a>
                                             </div>
                                         
                                         </div>
