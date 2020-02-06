@@ -34,10 +34,36 @@
                                                 <!-- Subtitle -->
                                                 <p class="card-text"><i class="fa fa-clock-o"></i>{{$post->created_at->diffForHumans()}}</p>
                                             </div>
+
+
                                             <div class="container float-right" style="width:10%;margin-left:70px;">
                                                 <form id="delete-form" method="POST" action="{{ route('posts.destroy',$post->id)}}">
                                                     @method('DELETE')
                                                     @csrf
+
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                        <div class="modal-content text-center">
+                                                            <div class="modal-header" style="background-color: ">
+                                                            <h4 class="modal-title" id="exampleModalLabel">Are you sure?</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                            </div>
+                                                            <div class="modal-body" style="background-color: ">
+                                                                <input type="hidden" name="_method" value="DELETE">
+                                                                <p>Do you really want to delete these records? This process cannot be undone.</p>
+                                                            </div>
+                                                            <div class="modal-footer" style="background-color: ">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-danger">DELETE</button>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--endof_Model-->
+
                                                     <div class="dropdown float-right">
                                                         <ul class="navbar-nav ml-auto">
                                                             <li class="nav-item dropdown">
@@ -48,7 +74,7 @@
                                                                     <a class="dropdown-item" href="/posts/{{$post->id}}/edit" onMouseOver="this.style.color='#808080'" onMouseOut="this.style.color='#000'">Edit</a>
                                                                     <a class="dropdown-item" href="{{ route('posts.destroy',$post->id)}} "
                                                                         onclick="event.preventDefault();
-                                                                                        document.getElementById('delete-form').submit();"  onMouseOver="this.style.color='#808080'" onMouseOut="this.style.color='#000'" >
+                                                                                        document.getElementById('exampleModal').submit();"  onMouseOver="this.style.color='#808080'" onMouseOut="this.style.color='#000'" data-toggle="modal" data-target="#exampleModal">
                                                                         {{ __('Delete') }}
                                                                     </a>
                                                                 </div>
